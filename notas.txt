@@ -1,0 +1,230 @@
+Notas git 
+
+https://appsco.platzi.com/clases/git-appsco/concepto/sistemas-de-control-de-versiones/comandos-utiles-de-la-terminal/material/
+
+** version git --version
+
+**cd **= Change directory
+**mkdir **= Make directory
+**ls **= list - en ++windows ++deben usar dir
+**clear **= también se puede usar control + L
+**touch **= crea un archivo o modifica su fecha de modificación.
+**rm **= remove -rf(para borrar carpetas)
+
+Nunca usar rm -rf / o se despiden de su pc 😞
+
+VIM
+i = para poder editar
+:wq = para guardar y salir
+:q! = para salir sin guardar
+
+
+**Configuracion**  pasar a stating 
+
+git config --global user.email a@a.com
+
+**acceso por usuario 
+
+git config --global user.name usuario
+
+**crear repositorio
+
+git init nombre del repositorio
+
+**valida el estado de los archivos 
+
+git status
+
+** Solo un archivo
+git add nmbre del archivo
+
+**Agregar todos los archivos de la carpeta
+git add -A  
+
+** remover archivo los elimina
+git rm -f index.html
+
+** Con el add -n los deja pendientes por confirmar
+git rm -n index.html
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+git rm --cached namefile  
+  
+  
+  *********repositorio 
+
+confirmar nuestros cambios con 
+git commit -m "el comentario de lo que se agrego"
+
+
+Git commit -m [“mensaje”]: Es bueno ser descriptivos con el mensaje para saber lo que se hizo en ese commit y para informar al resto de personas.
+
+–amend: concatena nuevos cambios con cambios previos.
+
+git log: nos muestra la historia de todos los commits que hemos realizados.
+
+
+
+***etiquetas manejo de versi
+
+git tag: nos permite agregar etiquetas a nuestros cambios.
+-a para la anotación
+-m para el mensaje
+
+-l nos muestra la lista de etiquetas
+-f para renombrar
+-d para borrar
+
+git tag -a 0.0 -m 'Comentario'
+
+
+** monitoreo de log
+
+git log
+git log --oneline
+git log --oneline --graph
+git log -3
+
+
+** revisión de archivos DIFF
+
+git diff
+git log --oneline -- optenemos el numero del sha
+
+git diff version.1 version.2
+
+
+
+**git reset -- soft
+
+devolver el ultimo archivo commit lo deja en staging
+git reset -- soft [SHA1]
+
+**git reset -- mixed
+
+Devuelve el archivo y lo deja en working direttori
+git reset -- mixed
+
+**git reset -- hard
+
+git reset --soft [SHA 1]: elimina los cambios hasta el staging area
+git reset --mixed [SHA 1]: elimina los cambios hasta el working area
+git reset --hard [SHA 1]: regresa hasta el commit del [SHA 1]
+git checkout [SHA-1] para recuperar el commit o restaurarlo:
+
+
+*** configurar otro editor de texto 
+
+git config -- global core.editor [nombreeditor]
+
+
++++++++++
+git branch (Múltiples RAMAS del repositorio)
+
+Las ramas son muy importantes si quieres trabajar con un equipo y no quieres tocar la rama master para no crear conflictos,
+
+git branch [nombre] se crea una nueva rama
+-l: listamos las ramas
+-d/-D [nombre]: borramos rama
+-m [nombre] [nombre_nuevo]: para renombrar ramas
+
+
+git checkout [nombre/sha1]: Nos permite mover entre ramas y entre commits, no vamos a borrar nada. Acá es donde podemos movernos en el tiempo.
+
+git checkout -b [nombre_rama]: Nos permite crear una nueva rama sin necesidad de usar branc
+
+
+git merge [rama]: Nos permite mezclar los cambios realizados en dicha rama con la rama en la que estamos.
+
+fast-forward: los mezcla automáticamente
+recursive/auto-merging: ambas ramas salieron al mismo tiempo y hay algo nuevo en la rama que la otra no recuerda, por eso hace la mezcla recursiva.
+manual merge: nos va a tocar decirle a git específicamente los cambios que queremos mezclar
+
+
+git merge (Mezclando ramas y resolviendo conflictos)
+
+git rebase (Reescribe la historia de tu proyecto)
+
+git rebase: hace prácticamente lo mismo que merge, cambiamos la historia de nuestro proyecto sin crear bifurcaciones del proyecto. Es mejor usar merge
+Usar solo git rebase de manera local.
+
+
+git stash (Guardando cambios temporalmente)
+
+git stash: es otro de los limbos, como el staging area. Para agregar los cambios estos deben estar en el staging area.
+git stash list: nos muestra la lista de stash que tengamos.
+git stash drop stash@{numero}: nos permite borrar un stash.
+git stash apply: aplicamos el último cambio
+
+
+git stash list = lista de stash 
+git stash drop stash@{1} = elimina un stash
+git stash apply stash@{3} = confirma el stash
+
+
+
+Cherry pick eligiendo commits selectivamente
+
+Si estás trabajando en una rama, pero de repente notas que hiciste un cambio en la rama que no debías, para esto podemos usar cherry pick. Este comando nos puede salvar la vida, ya que nos permite sacar cambios específicos de una rama y mezclarlos en otra.
+
+identificamos el SHA y se ubica en la rama correcta
+
+git cherry-pick [SHA1]
+
+
+github
+
+git clone/fork (Clonando repositorios remotos)
+
+git clone https://github.com/01dalkon/git.git
+
+
+Añadiendo una llave ssh a GitHub
+
+creamos el enlace
+ssh-keygen -t rsa -b 4096 -C "01dalkon@gmail.com"
+
+
+Copiamos la llave
+cat ~/.ssh/id_rsa.pub
+
+cargamos nuestro repositorio 
+git remote add origin git@github.com:01dalkon/git.git
+
+
+remover repositorio
+git remote remove [nombre del remoto]
+
+traer repositorio online
+git fetch origen master
+
+
+
+mesclando ramas locales y las origin
+git merge origin/master
+
+git merge origin/master --allow-unrelated-histories
+
+actualizar desde el repositorio  mi local
+
+git fetch: descarga los cambios a una rama generalmente llamada origin/master, seguido de esto tienes que fuisonar esa rama
+
+git pull: es como ejecutar los 2 pasos anteriores(fetch y merge) en uno solo
+
+
+enviar cambios desde local al remoto
+
+Asi subimos nuestros cambios a github:
+
+git push origin master
+
+Tambien podemos enviar los tags:
+git push origin master --tags
+
+Podemos enviar otras ramas:
+git push origin [otra_rama]
+
+
+.gitignore (Ignorando archivos no deseados)
